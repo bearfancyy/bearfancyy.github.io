@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BladePlay | Toy Collectibles</title>
+    
+    <!-- Dynamic Google Font (Defaulting to Inter) -->
+    <link id="dynamic-font" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { DEFAULT: '#FF6B00', hover: '#E56000' },
+                        dark: { bg: '#151515', card: '#222222', border: '#333333' }
+                    },
+                    fontFamily: {
+                        sans: ['var(--dynamic-font-family)', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root { --dynamic-font-family: 'Inter'; }
+        body { background-color: #151515; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #151515; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF6B00; }
+        .page { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-gray-300 font-sans antialiased overflow-x-hidden flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <div class="bg-brand text-white text-center py-2 text-xs font-bold tracking-wider uppercase">
+        Level up your collection
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-[#151515] border-b border-dark-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer nav-link" data-page="home">
+                    <i class="fa-solid fa-khanda text-brand text-2xl"></i>
+                    <span id="ui-logo-text" class="text-white text-xl font-bold tracking-tight">BLADEPLAY</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center" id="main-nav">
+                    <a href="#" class="nav-link text-brand font-semibold text-sm transition-colors" data-page="home">Home</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-page="shop" data-category="all">Shop All</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-page="shop" data-category="katana">Katana Toys</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-page="shop" data-category="knife">Toy Knives</a>
+                    <a href="#" class="nav-link text-gray-300 hover:text-white font-medium text-sm transition-colors" data-page="shop" data-category="sword">Fantasy Swords</a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="absolute -top-2 -right-2 bg-brand text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <!-- HOME PAGE -->
+        <section id="page-home" class="page active">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 order-2 lg:order-1">
+                        <p class="text-brand font-bold tracking-widest text-sm uppercase">Toy Collectibles · Cosplay Props</p>
+                        <h1 class="text-5xl lg:text-7xl font-extrabold text-white leading-tight tracking-tight">
+                            Built for play.<br>Made to stand out.
+                        </h1>
+                        <p class="text-gray-400 text-lg max-w-lg leading-relaxed">
+                            Explore toy swords, cosplay props and collectible designs for your next adventure. Every piece is non-functional — made for display, costume and play.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <button onclick="navigate('shop', 'all')" class="bg-brand hover:bg-brand-hover text-white font-bold py-4 px-8 rounded-md transition-colors flex items-center justify-center gap-2">
+                                SHOP COLLECTION <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="relative order-1 lg:order-2 rounded-xl overflow-hidden group">
+                        <img src="https://images.unsplash.com/photo-1590513904944-8848d71241f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Hero Katana" class="w-full h-[500px] object-cover object-center rounded-xl opacity-80">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bestsellers Grid -->
+            <div id="bestsellers-section" class="bg-[#111111] py-16 border-t border-dark-border">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-end mb-10">
+                        <div>
+                            <h2 class="text-3xl font-bold text-white mb-2">Bestsellers</h2>
+                            <p class="text-gray-400">Popular picks from the community.</p>
+                        </div>
+                    </div>
+                    <div id="bestsellers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <p class="text-gray-500">Loading products from database...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SHOP PAGE -->
+        <section id="page-shop" class="page">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="mb-8 border-b border-dark-border pb-8">
+                    <h1 id="shop-title" class="text-4xl font-bold text-white">Shop All</h1>
+                    <p id="shop-count" class="text-gray-400 mt-2">Loading...</p>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <div class="w-full lg:w-64 flex-shrink-0 space-y-8">
+                        <div>
+                            <h3 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Category</h3>
+                            <ul class="space-y-3" id="sidebar-categories">
+                                <li><button onclick="navigate('shop', 'all')" class="text-brand font-semibold text-sm transition-colors text-left w-full">All categories</button></li>
+                                <li><button onclick="navigate('shop', 'katana')" class="text-gray-400 hover:text-brand text-sm transition-colors text-left w-full">Katana Toys</button></li>
+                                <li><button onclick="navigate('shop', 'knife')" class="text-gray-400 hover:text-brand text-sm transition-colors text-left w-full">Toy Knives</button></li>
+                                <li><button onclick="navigate('shop', 'sword')" class="text-gray-400 hover:text-brand text-sm transition-colors text-left w-full">Fantasy Swords</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex-grow">
+                        <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Firebase Realtime Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Initialize Firebase (Replace with your config when exporting to GitHub)
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            // YOUR GITHUB FIREBASE CONFIG GOES HERE
+            apiKey: "demo", projectId: "demo"
+        };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'bladeplay-demo-id';
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        let globalProducts = [];
+        let globalSettings = { whatsapp: '919876543210' };
+
+        // UI Helpers
+        const formatPrice = (price) => `₹${Number(price).toLocaleString('en-IN')}`;
+        
+        window.buyNow = (name, price) => {
+            const text = encodeURIComponent(`Hello! I'm interested in buying the ${name} for ${formatPrice(price)}.`);
+            window.open(`https://wa.me/${globalSettings.whatsapp}?text=${text}`, '_blank');
+        };
+
+        const createProductCard = (product) => `
+            <div class="bg-dark-card rounded-xl overflow-hidden group border border-dark-border hover:border-brand transition-colors duration-300 flex flex-col h-full">
+                <div class="relative h-64 overflow-hidden">
+                    ${product.tag ? `<div class="absolute top-3 left-3 bg-brand text-white text-xs font-bold px-2 py-1 rounded z-10">${product.tag}</div>` : ''}
+                    <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-white font-semibold text-lg leading-tight mb-2">${product.name}</h3>
+                    <div class="mt-auto mb-4 flex items-center gap-2">
+                        <span class="text-white font-bold text-xl">${formatPrice(product.price)}</span>
+                        ${product.oldPrice ? `<span class="text-gray-500 line-through text-sm">${formatPrice(product.oldPrice)}</span>` : ''}
+                    </div>
+                    <button onclick="buyNow('${product.name}', ${product.price})" class="w-full bg-brand hover:bg-brand-hover text-white font-bold py-3 rounded text-center transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Buy via WhatsApp
+                    </button>
+                </div>
+            </div>
+        `;
+
+        const renderGrids = (category = 'all') => {
+            // Render Bestsellers
+            const bestsellers = globalProducts.filter(p => p.isBest);
+            const bestGrid = document.getElementById('bestsellers-grid');
+            if(bestGrid) bestGrid.innerHTML = bestsellers.map(createProductCard).join('');
+
+            // Render Shop
+            let filtered = globalProducts;
+            let title = "Shop All";
+            if (category === 'katana') { filtered = globalProducts.filter(p => p.category === 'katana'); title = "Katana Toys"; }
+            else if (category === 'knife') { filtered = globalProducts.filter(p => p.category === 'knife'); title = "Toy Knives"; }
+            else if (category === 'sword') { filtered = globalProducts.filter(p => p.category === 'sword'); title = "Fantasy Swords"; }
+
+            const shopTitle = document.getElementById('shop-title');
+            const shopCount = document.getElementById('shop-count');
+            const shopGrid = document.getElementById('shop-grid');
+
+            if(shopTitle) shopTitle.innerText = title;
+            if(shopCount) shopCount.innerText = `${filtered.length} products found`;
+            if(shopGrid) shopGrid.innerHTML = filtered.map(createProductCard).join('');
+        };
+
+        // Navigation
+        window.navigate = (pageId, category = 'all') => {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(`page-${pageId}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.querySelectorAll('#main-nav .nav-link').forEach(link => { link.classList.replace('text-brand', 'text-gray-300'); });
+            
+            let activeLink = pageId === 'home' ? document.querySelector(`#main-nav .nav-link[data-page="home"]`) 
+                             : document.querySelector(`#main-nav .nav-link[data-page="shop"][data-category="${category}"]`) || document.querySelector(`#main-nav .nav-link[data-page="shop"][data-category="all"]`);
+            
+            if(activeLink) activeLink.classList.replace('text-gray-300', 'text-brand');
+
+            if(pageId === 'shop') {
+                document.querySelectorAll('#sidebar-categories button').forEach(btn => {
+                    btn.classList.remove('text-brand', 'font-semibold'); btn.classList.add('text-gray-400');
+                });
+                const sidebarLink = document.querySelector(`#sidebar-categories button[onclick="navigate('shop', '${category}')"]`);
+                if(sidebarLink) { sidebarLink.classList.remove('text-gray-400'); sidebarLink.classList.add('text-brand', 'font-semibold'); }
+            }
+            renderGrids(category);
+        };
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navigate(link.getAttribute('data-page'), link.getAttribute('data-category') || 'all');
+            });
+        });
+
+        // Initialize App
+        const startApp = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // Listen to Settings
+                const settingsRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'config');
+                onSnapshot(settingsRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        globalSettings = docSnap.data();
+                        if(globalSettings.logoText) document.getElementById('ui-logo-text').innerText = globalSettings.logoText;
+                        if(globalSettings.font) {
+                            document.documentElement.style.setProperty('--dynamic-font-family', globalSettings.font);
+                            document.getElementById('dynamic-font').href = `https://fonts.googleapis.com/css2?family=${globalSettings.font.replace(' ', '+')}:wght@400;500;600;700;800&display=swap`;
+                        }
+                    }
+                }, (error) => console.error("Settings error:", error));
+
+                // Listen to Products
+                const productsRef = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+                onSnapshot(productsRef, (querySnapshot) => {
+                    globalProducts = [];
+                    querySnapshot.forEach((doc) => {
+                        globalProducts.push({ id: doc.id, ...doc.data() });
+                    });
+                    renderGrids();
+                }, (error) => console.error("Products error:", error));
+
+            } catch (error) {
+                console.error("Auth error:", error);
+            }
+        };
+
+        startApp();
+    </script>
+</body>
+</html>
